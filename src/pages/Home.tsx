@@ -11,7 +11,7 @@ import { changeLocalStorage } from "../services/storage";
 import { add } from "../services/transactions";
 
 const Home = () => {
-    const { setIsLoggedIn, email, setEmail, senha, setSenha } =
+    const { setItems } =
         useContext(AppContext);
     const [titulo, setTitulo] = useState("");
     const [tipo, setTipo] = useState("");
@@ -19,7 +19,7 @@ const Home = () => {
     const [valor, setValor] = useState("");
     const newOp = () =>{
         const op = add(titulo, tipo, categoria, parseInt(valor))
-        console.log(JSON.parse(op))
+        setItems(JSON.parse(op))
     }
   return (
     <Box padding="25px">

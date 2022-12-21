@@ -7,7 +7,7 @@ const dioBank = {
 }
 
 export const getAllLocalStorage = (): string | null  => {
-    return localStorage.getItem('diobank')
+    return localStorage.getItem('transactions')
 }
 
 export const createLocalStorage = (): void => {

@@ -2,9 +2,18 @@ import { createContext, useEffect, useState } from "react"
 import { getAllLocalStorage } from "../services/storage"
 import { useNavigate } from "react-router-dom";
 
+interface dados {
+  titulo: string,
+  tipo: string,
+  categoria: string,
+  valor: number,
+}
+
 interface IAppContext {
   email: string,
   setEmail: (email: string) => void
+  items: dados[],
+  setItems: (items: dados[]) => void
   senha: string,
   setSenha: (senha: string) => void
   isLoggedIn: boolean,
@@ -17,21 +26,19 @@ export const AppContextProvider = ({ children }: any) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [email, setEmail] = useState<string>('')
   const [senha, setSenha] = useState<string>('')
+  const [items, setItems] = useState<dados[]>([])
 
   const storage = getAllLocalStorage()
 
   useEffect(() => {
     if (storage) {
-      const { login } = JSON.parse(storage)
-      setIsLoggedIn(login)
-        if (login) {
-          navigate('/conta/1')
-        }
+      let i =JSON.parse(storage)
+      setItems(i)
     }
   }, [storage, navigate])
 
   return (
-    <AppContext.Provider value={{ email, setEmail, senha, setSenha, isLoggedIn, setIsLoggedIn }}>
+    <AppContext.Provider value={{ items, setItems, email, setEmail, senha, setSenha, isLoggedIn, setIsLoggedIn }}>
       {children}
     </AppContext.Provider>
   )

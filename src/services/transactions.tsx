@@ -12,16 +12,20 @@
 
     return true
 }*/
-
+interface Idados {
+    titulo: string,
+    tipo: string,
+    categoria: string,
+    valor: number,
+  }
 
 export const add = (titulo: string, tipo: string, categoria: string, valor: number): string => {
     
-    let data: Object = {
+    let data: Idados = {
         titulo,
         tipo,
         categoria,
         valor,
-        data: Date.now()
     }
     if(!localStorage.getItem('transactions')){
         console.log(JSON.stringify([data]))
@@ -31,4 +35,15 @@ export const add = (titulo: string, tipo: string, categoria: string, valor: numb
     itens.push(data)
     localStorage.setItem('transactions',JSON.stringify(itens))
     return localStorage.getItem('transactions') || '{}'
+}
+export const sum = (data: Idados[]): number => {
+    let sum:number = 0
+    for(let i:number = 0;i<data.length; i++){
+        if(data[i].tipo === "Entrada"){
+           sum  += data[i].valor
+        } else {
+            sum  -= data[i].valor
+        }
+    }
+    return sum
 }

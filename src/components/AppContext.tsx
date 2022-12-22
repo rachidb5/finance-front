@@ -32,10 +32,10 @@ export const AppContextProvider = ({ children }: any) => {
 
   useEffect(() => {
     if (storage) {
-      let i =JSON.parse(storage)
-      setItems(i)
+      console.log(JSON.parse(storage))
+      setItems(JSON.parse(storage))
     }
-  }, [storage, navigate])
+  }, [storage])
 
   return (
     <AppContext.Provider value={{ items, setItems, email, setEmail, senha, setSenha, isLoggedIn, setIsLoggedIn }}>

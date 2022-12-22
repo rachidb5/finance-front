@@ -53,7 +53,7 @@ const Home = () => {
           <DButton onClick={() => newOp()} />
         </Center>
       </Card>
-      <TableL />
+      <TableL />      
     </Box>
   );
 };

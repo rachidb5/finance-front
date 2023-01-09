@@ -116,7 +116,7 @@ export const TableL = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {filtered.map(i =><TableLine key={i.titulo} titulo={i.titulo} tipo={i.tipo} valor={i.valor} categoria={i.categoria}/> )}
+            {filtered.map(i =><TableLine key={i.id} titulo={i.titulo} tipo={i.tipo} valor={i.valor} categoria={i.categoria}/> )}
           </Tbody>
         </Table>
       </TableContainer>

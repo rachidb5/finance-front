@@ -18,7 +18,12 @@ const Home = () => {
     const [categoria, setCategoria] = useState("");
     const [valor, setValor] = useState("");
     const newOp = () =>{
-        const op = add(titulo, tipo, categoria, parseInt(valor))
+      let id = 1;
+      if(localStorage.getItem("transactions")){
+        const itens = JSON.parse(localStorage.getItem("transactions") || "{}")
+        id = itens[itens.length-1].id+1
+      }
+        const op = add(titulo, tipo, categoria, parseInt(valor),id)
         setItems(JSON.parse(op))
     }
   return (

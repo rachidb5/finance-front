@@ -3,6 +3,7 @@ import { getAllLocalStorage } from "../services/storage"
 import { useNavigate } from "react-router-dom";
 
 interface dados {
+  id: number,
   titulo: string,
   tipo: string,
   categoria: string,

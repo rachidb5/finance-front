@@ -13,28 +13,30 @@
     return true
 }*/
 interface Idados {
+    id: number,
     titulo: string,
     tipo: string,
     categoria: string,
     valor: number,
   }
 
-export const add = (titulo: string, tipo: string, categoria: string, valor: number): string => {
+export const add = (titulo: string, tipo: string, categoria: string, valor: number, id: number): string => {
     
     let data: Idados = {
+        id,
         titulo,
         tipo,
         categoria,
         valor,
     }
     if(!localStorage.getItem('transactions')){
-        console.log(JSON.stringify([data]))
-        localStorage.setItem('transactions',JSON.stringify([data]))
+        localStorage.setItem('transactions',JSON.stringify([]))
     } 
     let itens: object[] = JSON.parse(localStorage.getItem('transactions') || '[]')
+    console.log(itens)
     itens.push(data)
     localStorage.setItem('transactions',JSON.stringify(itens))
-    return localStorage.getItem('transactions') || '{}'
+    return localStorage.getItem('transactions') || '[]'
 }
 export const sum = (data: Idados[]): number => {
     let sum:number = 0

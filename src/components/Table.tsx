@@ -116,7 +116,8 @@ export const TableL = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {filtered.map(i =><TableLine key={i.id} titulo={i.titulo} tipo={i.tipo} valor={i.valor} categoria={i.categoria}/> )}
+            {filtered.sort((a,b)=>{
+        return a.id-b.id}).map(i =><TableLine key={i.id} id={i.id} titulo={i.titulo} tipo={i.tipo} valor={i.valor} categoria={i.categoria}/> )}
           </Tbody>
         </Table>
       </TableContainer>

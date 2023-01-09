@@ -49,3 +49,7 @@ export const sum = (data: Idados[]): number => {
     }
     return sum
 }
+
+export const getById = (id: number) =>{
+    return JSON.parse(localStorage.getItem('transactions') || '[]').filter((i: { id: number }) => i.id === id)[0]   
+}

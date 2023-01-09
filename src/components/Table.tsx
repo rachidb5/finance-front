@@ -45,34 +45,6 @@ export const TableL = () => {
     } else {
       filtered = filtered
     }
-    /*const filterTitulo = (t:string) => {
-        setTituloFiltro(t)
-        let titulos = items.filter((i: { titulo: string, categoria: string, tipo: string }) => {
-            i.titulo.includes(t) && i.categoria.includes(categoriaFiltro)
-        }) 
-        if(t !=='' && tituloFiltro){
-            setItems(titulos)
-        } else{
-            setItems(JSON.parse(localStorage.getItem('transactions') || '[]').filter((i: {categoria: string; }) => i.categoria.includes(categoriaFiltro)))
-        }
-    }
-    const filterCategoria = (t:string) => {
-        setCategoriaFiltro(t)
-        let titulos = items.filter((i: {titulo: string, categoria: string, tipo:string }) => {
-            i.categoria.includes(t) && i.titulo.includes(tituloFiltro)
-        }) 
-        if(t !=='' && tituloFiltro){
-            setItems(titulos)
-        } else{
-            setItems(JSON.parse(localStorage.getItem('transactions') || '[]').filter((i: {titulo: string }) => i.titulo.includes(tituloFiltro)))
-        }
-    }
-    const selectType = (n: string) =>{
-        setTipoFiltro(n)
-        setItems(JSON.parse(localStorage.getItem('transactions') || '[]').filter((i: {titulo: string, categoria: string, tipo: string }) => {
-            i.categoria.includes(categoriaFiltro) && i.titulo.includes(tituloFiltro) && i.tipo.includes(n)
-        }))
-    }*/
   return (
     <Box
       backgroundColor="#FFFFFF"

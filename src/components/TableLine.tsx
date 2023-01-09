@@ -9,9 +9,13 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { AppContext } from "./AppContext";
+import { getById } from "../services/transactions";
 
 type Props = {
   id: number;
@@ -23,12 +27,11 @@ type Props = {
 function TableLine(props: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { items, setItems } = useContext(AppContext);
-  const [idItem, setIdItem] = useState(1);
-  const [tituloFiltro, setTituloFiltro] = useState('')
-  const [categoriaFiltro, setCategoriaFiltro] = useState('')
-  const [tipoFiltro, setTipoFiltro] = useState('')
-  const [min, setMin] = useState(0)
-  const [max, setMax] = useState(0)
+  const [titulo, setTitulo] = useState("");
+  const [categoria, setCategoria] = useState("");
+  const [tipo, setTipo] = useState("");
+  const [id, setId] = useState(0);
+  const [valor, setValor] = useState(0);
   const remove = () => {
     setItems(items.filter((i) => i.titulo !== props.titulo));
     localStorage.setItem(
@@ -37,40 +40,66 @@ function TableLine(props: Props) {
     );
   };
   const openModal = (id: number) => {
-    onOpen()
-    setIdItem(id);
+    const item = getById(id)
+    setTitulo(item.titulo)
+    setCategoria(item.categoria)
+    setTipo(item.tipo)
+    setValor(item.valor)
+    setId(item.id)
+    onOpen();
   };
+  const save = () =>{
+    let editedArr = JSON.parse(localStorage.getItem('transactions') || '[]').filter((i: { id: number }) => i.id !== id)
+    editedArr.push({
+      id,
+      titulo,
+      tipo,
+      categoria,
+      valor
+    })
+    localStorage.setItem('transactions', JSON.stringify(editedArr))
+    setItems(editedArr)
+    onClose()
+  }
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <span>tesst</span>
-          <span>{idItem}</span>
-          <SimpleGrid columns={2} spacing={10} >
-          <Input
-            placeholder="Pesquisa por título"
-            onChange={(event) => setTituloFiltro(event.target.value)}
-          />
-          <Input
-            placeholder="Pesquisa por categoria"
-            onChange={(event) => setCategoriaFiltro(event.target.value)}
-          />
-            <Select placeholder="Tipo" onChange={(event) => setTipoFiltro(event.target.value)}>
+          <ModalHeader>Editar</ModalHeader>
+          <ModalBody>
+            <SimpleGrid columns={2} spacing={10}>
+              <Input
+                placeholder="Pesquisa por título"
+                value={titulo}
+                onChange={(event) => setTitulo(event.target.value)}
+              />
+              <Input
+                placeholder="Pesquisa por categoria"
+                value={categoria}
+                onChange={(event) => setCategoria(event.target.value)}
+              />
+              <Select
+                placeholder="Tipo"
+                value={tipo}
+                onChange={(event) => setTipo(event.target.value)}
+              >
                 <option value="Entrada">Entrada</option>
                 <option value="Saída">Saída</option>
-          </Select>
-          <SimpleGrid columns={2} spacing={5}>  
-          <Input
-            placeholder="min $$$"
-            onChange={(event) => setMin(parseFloat(event.target.value))}
-          />
-          <Input
-            placeholder="max $$$"
-            onChange={(event) => setMax(parseFloat(event.target.value))}
-          />
-          </SimpleGrid>
-        </SimpleGrid>
+              </Select>
+                <Input
+                  placeholder="valor $$$"
+                  value={valor}
+                  onChange={(event) => setValor(parseFloat(event.target.value))}
+                />
+            </SimpleGrid>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={() => save()}>
+              Salvar
+            </Button>
+            <Button colorScheme='red' onClick={onClose}>Cancelar</Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
       <Tr>
